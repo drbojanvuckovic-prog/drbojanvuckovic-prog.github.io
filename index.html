@@ -1,7 +1,7 @@
 <!doctype html><html lang="sr-Latn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Doktorska disertacija - Bojan Vučković</title><meta name="description" content="Savremeni naučni portal doktorske disertacije Bojana Vučkovića."><meta name="theme-color" content="#081c2b"><link rel="stylesheet" href="assets/style.css"><link rel="stylesheet" href="assets/mobile-overrides.css"></head><body><div class="progress" aria-hidden="true"></div><header class="site-head"><div class="container nav">
 <a class="brand" href="index.html"><span class="brand-mark">BV</span><span class="brand-copy"><strong>Bojan Vučković</strong><small>Doktorska disertacija</small></span></a>
 <nav class="navlinks" aria-label="Glavna navigacija"><a class="active" href="index.html">Početna</a><a href="istrazivanje.html">Istraživanje</a><a href="teorija.html">Teorijski okvir</a><a href="metode.html">Metode</a><a href="genetika.html">Genetika</a><a href="rezultati.html">Rezultati</a><a href="doprinos.html">Doprinos</a><a href="publikacije.html">Publikacije</a><a href="zakljucak.html">Zaključak</a><a href="galerija.html">Galerija</a></nav>
-<div class="nav-tools"><a class="tool-link" href="fulltext.html">Puni tekst</a><a class="tool-link" href="assets/disertacija.pdf">PDF</a></div>
+<div class="nav-tools"><a class="tool-link" href="fulltext.html">Kompletan tekst</a><a class="tool-link" href="assets/disertacija.pdf">PDF</a></div>
 <button class="menu-btn" aria-label="Otvori meni">Meni</button></div></header>
 <main>
 <section class="dissertation-banner">
@@ -37,7 +37,7 @@
           </article>
         </div>
 
-        <div class="actions banner-actions"><a class="btn primary" href="rezultati.html">Ključni rezultati</a><a class="btn secondary" href="doprinos.html">Naučni doprinos</a><a class="btn ghost" href="fulltext.html">Puni tekst</a></div>
+        <div class="actions banner-actions"><a class="btn primary" href="rezultati.html">Ključni rezultati</a><a class="btn secondary" href="doprinos.html">Naučni doprinos</a><a class="btn ghost" href="fulltext.html">Kompletan tekst</a></div>
       </div>
 
       <div class="pelvic-illustration-panel" aria-hidden="true">
@@ -150,7 +150,7 @@ search?.addEventListener('input', () => {
   if (!q) { if(info) info.textContent='Pretraga obuhvata glavne tematske celine ovog sajta.'; return; }
   const hits = searchBlocks.filter(el => el.innerText.toLocaleLowerCase('sr').includes(q));
   hits.forEach(el => el.classList.add('search-hit'));
-  if(info) info.textContent = hits.length ? `Pronađeno tematskih blokova: ${hits.length}.` : 'Nema rezultata u sažetom prikazu. Otvorite puni tekst za detaljnu pretragu.';
+  if(info) info.textContent = hits.length ? `Pronađeno tematskih blokova: ${hits.length}.` : 'Nema rezultata u sažetom prikazu. Otvorite kompletan tekst za detaljnu pretragu.';
   hits[0]?.scrollIntoView({behavior:'smooth',block:'center'});
 });
 

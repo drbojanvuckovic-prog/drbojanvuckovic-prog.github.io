@@ -7,7 +7,7 @@
     const full = document.createElement('a');
     full.className = 'mobile-nav-tool';
     full.href = 'fulltext.html';
-    full.textContent = 'Puni tekst';
+    full.textContent = 'Kompletan tekst';
 
     const pdf = document.createElement('a');
     pdf.className = 'mobile-nav-tool mobile-pdf';

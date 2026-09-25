@@ -49,6 +49,26 @@ jobs:
           fi
           SITE_DIR="$(dirname "$INDEX")"
           cp -a "$SITE_DIR"/. _site/
+
+          # Mobile-only layer: keeps desktop portal unchanged.
+          mkdir -p _site/assets
+          cp mobile-overrides.css _site/assets/mobile-overrides.css
+          cp mobile-nav.js _site/assets/mobile-nav.js
+
+          python3 - <<'PY'
+          from pathlib import Path
+          root = Path("_site")
+          for p in root.glob("*.html"):
+              s = p.read_text(encoding="utf-8")
+              css = '<link rel="stylesheet" href="assets/mobile-overrides.css">'
+              js = '<script src="assets/mobile-nav.js"></script>'
+              if "assets/mobile-overrides.css" not in s:
+                  s = s.replace("</head>", css + "</head>", 1)
+              if "assets/mobile-nav.js" not in s:
+                  s = s.replace("</body>", js + "</body>", 1)
+              p.write_text(s, encoding="utf-8")
+          PY
+
           touch _site/.nojekyll
 
       - name: Configure Pages

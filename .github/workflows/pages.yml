@@ -1,84 +1,96 @@
-name: Deploy dissertation portal to GitHub Pages
+name: Sync dissertation portal to repository root
 
 on:
   push:
     branches:
       - main
+    paths:
+      - "bojan_vuckovic_disertacija_portal_MEDICAL_TECH*.zip"
+      - "mobile-overrides.css"
+      - "mobile-nav.js"
+      - ".github/workflows/pages.yml"
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
-  group: "pages"
+  group: "portal-sync"
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  sync:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Prepare dissertation portal
+      - name: Expand portal into repository root
         shell: bash
         run: |
-          set -e
+          set -euo pipefail
+
           ZIP="$(find . -maxdepth 1 -type f -name 'bojan_vuckovic_disertacija_portal_MEDICAL_TECH*.zip' -print -quit)"
           if [ -z "$ZIP" ]; then
             echo "Portal ZIP is missing from repository root."
             exit 1
           fi
+
           if ! unzip -tq "$ZIP" >/dev/null 2>&1; then
             echo "Uploaded file is not a valid ZIP archive."
             exit 1
           fi
-          rm -rf _site _unpack
-          mkdir -p _site _unpack
-          unzip -q "$ZIP" -d _unpack
-          INDEX="$(find _unpack -maxdepth 3 -type f -name index.html -print -quit)"
+
+          rm -rf _portal_unpack
+          mkdir -p _portal_unpack
+          unzip -q "$ZIP" -d _portal_unpack
+
+          INDEX="$(find _portal_unpack -maxdepth 4 -type f -name index.html -print -quit)"
           if [ -z "$INDEX" ]; then
-            echo "index.html not found in ZIP."
+            echo "index.html not found inside portal ZIP."
             exit 1
           fi
-          SITE_DIR="$(dirname "$INDEX")"
-          cp -a "$SITE_DIR"/. _site/
 
-          # Mobile-only layer: keeps desktop portal unchanged.
-          mkdir -p _site/assets
-          cp mobile-overrides.css _site/assets/mobile-overrides.css
-          cp mobile-nav.js _site/assets/mobile-nav.js
+          SITE_DIR="$(dirname "$INDEX")"
+
+          rsync -a --delete             --exclude='.git/'             --exclude='.github/'             --exclude='*.zip'             --exclude='mobile-overrides.css'             --exclude='mobile-nav.js'             "$SITE_DIR"/ ./
+
+          mkdir -p assets
+          cp mobile-overrides.css assets/mobile-overrides.css
+          cp mobile-nav.js assets/mobile-nav.js
 
           python3 - <<'PY'
           from pathlib import Path
-          root = Path("_site")
-          for p in root.glob("*.html"):
+
+          for p in Path(".").glob("*.html"):
               s = p.read_text(encoding="utf-8")
               css = '<link rel="stylesheet" href="assets/mobile-overrides.css">'
               js = '<script src="assets/mobile-nav.js"></script>'
+
               if "assets/mobile-overrides.css" not in s:
                   s = s.replace("</head>", css + "</head>", 1)
+
               if "assets/mobile-nav.js" not in s:
                   s = s.replace("</body>", js + "</body>", 1)
+
               p.write_text(s, encoding="utf-8")
           PY
 
-          touch _site/.nojekyll
+          rm -rf _portal_unpack
+          touch .nojekyll
 
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
+      - name: Commit published site files
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
 
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: _site
+          if git diff --cached --quiet; then
+            echo "No site changes to publish."
+            exit 0
+          fi
 
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          git commit -m "Publish dissertation portal files"
+          git push origin HEAD:main

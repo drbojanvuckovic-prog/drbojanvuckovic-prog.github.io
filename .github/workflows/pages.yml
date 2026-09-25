@@ -30,15 +30,25 @@ jobs:
         shell: bash
         run: |
           set -e
-          ZIP="bojan_vuckovic_disertacija_portal_MEDICAL_TECH.zip"
-          if [ ! -f "$ZIP" ]; then
-            echo "Missing $ZIP in repository root."
+          ZIP="$(find . -maxdepth 1 -type f -name 'bojan_vuckovic_disertacija_portal_MEDICAL_TECH*.zip' -print -quit)"
+          if [ -z "$ZIP" ]; then
+            echo "Portal ZIP is missing from repository root."
+            exit 1
+          fi
+          if ! unzip -tq "$ZIP" >/dev/null 2>&1; then
+            echo "Uploaded file is not a valid ZIP archive."
             exit 1
           fi
           rm -rf _site _unpack
           mkdir -p _site _unpack
           unzip -q "$ZIP" -d _unpack
-          cp -a _unpack/bojan_vuckovic_disertacija_sajt/. _site/
+          INDEX="$(find _unpack -maxdepth 3 -type f -name index.html -print -quit)"
+          if [ -z "$INDEX" ]; then
+            echo "index.html not found in ZIP."
+            exit 1
+          fi
+          SITE_DIR="$(dirname "$INDEX")"
+          cp -a "$SITE_DIR"/. _site/
           touch _site/.nojekyll
 
       - name: Configure Pages

@@ -1,0 +1,62 @@
+<!doctype html><html lang="sr-Latn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Zaključak - Doktorska disertacija</title><meta name="description" content="Zaključci, ograničenja i budući pravci."><meta name="theme-color" content="#081c2b"><link rel="stylesheet" href="assets/style.css"><link rel="stylesheet" href="assets/mobile-overrides.css"></head><body><div class="progress" aria-hidden="true"></div><header class="site-head"><div class="container nav">
+<a class="brand" href="index.html"><span class="brand-mark">BV</span><span class="brand-copy"><strong>Bojan Vučković</strong><small>Doktorska disertacija</small></span></a>
+<nav class="navlinks" aria-label="Glavna navigacija"><a class="" href="index.html">Početna</a><a class="" href="istrazivanje.html">Istraživanje</a><a class="" href="teorija.html">Teorijski okvir</a><a class="" href="metode.html">Metode</a><a class="" href="genetika.html">Genetika</a><a class="" href="rezultati.html">Rezultati</a><a class="" href="doprinos.html">Doprinos</a><a class="" href="publikacije.html">Publikacije</a><a class="active" href="zakljucak.html">Zaključak</a><a class="" href="galerija.html">Galerija</a></nav>
+<div class="nav-tools"><a class="tool-link" href="fulltext.html">Puni tekst</a><a class="tool-link" href="assets/disertacija.pdf">PDF</a></div>
+<button class="menu-btn" aria-label="Otvori meni">Meni</button></div></header><main><section class="page-hero"><div class="container page-hero-inner"><div><span class="eyebrow">08 - Zaključak</span><h1>Multifaktorijalni model sa dominantnim lokalnim ECM signalom</h1><p>Nalazi podržavaju model u kojem genetska predispozicija, klinički faktori i lokalno remodelovanje ekstracelularnog matriksa zajednički doprinose prolapsu, ali predstavljaju različite nivoe patogeneze.</p></div><div class="page-hero-orb"></div></div></section><section class="section"><div class="container surface"><div class="cards cards-3"><article class="card"><h3>POP i SUI</h3><p>Delimično dele anatomske i vezivnotkivne osnove, ali predstavljaju različite kliničke fenotipove.</p></article><article class="card"><h3>Genetika</h3><p>COL1A1 GT i COL3A1 GA ostaju nezavisno povezani sa prolapsom posle prilagođavanja.</p></article><article class="card"><h3>Tkivo</h3><p>COL1 i ELN su niži, COL3 i MMP-1/2/3/9 viši u operativno dobijenom tkivu.</p></article><article class="card"><h3>Plazma</h3><p>Promene su slabije i manje dosledne, pa nisu zamena za lokalni tkivni signal.</p></article><article class="card"><h3>Anatomija i simptomi</h3><p>Pojedini tkivni biomarkeri, naročito MMP-9, bliže prate anatomski fenotip nego kandidatski SNP-ovi.</p></article><article class="card"><h3>Translacija</h3><p>Potrebne su veće nezavisne kohorte i spoljašnja validacija pre kliničke primene.</p></article></div></div></section><section class="section"><div class="container surface"><div class="section-head"><div><div class="kicker">Ograničenja</div><h2>Ograničenja i pravci daljih istraživanja</h2></div><p>Jednocentrični dizajn, populaciona specifičnost, veličina uzorka, ograničena SUI podanaliza i odsustvo spoljašnje i funkcionalne validacije zahtevaju oprez u generalizaciji.</p></div><div class="details-grid"><details open><summary>Spoljašnja replikacija</summary><p>COL1A1 GT i COL3A1 GA treba potvrditi u nezavisnim populacijama.</p></details><details open><summary>Funkcionalna validacija</summary><p>Potrebno je ispitati uticaj genotipa na ekspresiju, fibroblaste i biomehaniku tkiva.</p></details><details><summary>Longitudinalni ishodi</summary><p>Za eventualnu kliničku upotrebu tkivnih modela i ECM-V okvira potrebni su ishodi recidiva i trajnosti rekonstrukcije.</p></details><details><summary>SUI kohorta</summary><p>Genetska pitanja vezana za SUI zahtevaju posebno dizajniranu studiju sa adekvatnom statističkom snagom.</p></details></div></div></section></main><footer><div class="container footer-grid"><div><strong>Bojan Vučković</strong><br>Doktorska disertacija - Univerzitet u Nišu - Medicinski fakultet - 2026</div><div>POP - SUI - genetika - ekstracelularni matriks - tkivni biomarkeri - urologija</div></div></footer><div class="lightbox" id="lightbox" aria-hidden="true"><button class="lightbox-close" aria-label="Zatvori prikaz">×</button><img class="lightbox-image" alt="Uvećani prikaz ilustracije"><p class="lightbox-caption"></p></div><script>
+const progress = document.querySelector('.progress');
+const root = document.documentElement;
+const updateProgress = () => {
+  const total = root.scrollHeight - root.clientHeight;
+  const pct = total > 0 ? (root.scrollTop / total) * 100 : 0;
+  if (progress) progress.style.width = `${pct}%`;
+};
+addEventListener('scroll', updateProgress, {passive:true});
+updateProgress();
+
+const menu = document.querySelector('.menu-btn');
+const links = document.querySelector('.navlinks');
+menu?.addEventListener('click', () => links?.classList.toggle('open'));
+links?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+const search = document.querySelector('#siteSearch');
+const info = document.querySelector('#searchInfo');
+const searchBlocks = [...document.querySelectorAll('[data-search]')];
+search?.addEventListener('input', () => {
+  const q = search.value.trim().toLocaleLowerCase('sr');
+  searchBlocks.forEach(el => el.classList.remove('search-hit'));
+  if (!q) { if(info) info.textContent='Pretraga obuhvata glavne tematske celine ovog sajta.'; return; }
+  const hits = searchBlocks.filter(el => el.innerText.toLocaleLowerCase('sr').includes(q));
+  hits.forEach(el => el.classList.add('search-hit'));
+  if(info) info.textContent = hits.length ? `Pronađeno tematskih blokova: ${hits.length}.` : 'Nema rezultata u sažetom prikazu. Otvorite puni tekst za detaljnu pretragu.';
+  hits[0]?.scrollIntoView({behavior:'smooth',block:'center'});
+});
+
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = lightbox?.querySelector('.lightbox-image');
+const lightboxCaption = lightbox?.querySelector('.lightbox-caption');
+const closeBtn = lightbox?.querySelector('.lightbox-close');
+const openLightbox = (src, alt, caption) => {
+  if (!lightbox || !lightboxImg || !lightboxCaption) return;
+  lightboxImg.src = src;
+  lightboxImg.alt = alt || '';
+  lightboxCaption.textContent = caption || alt || '';
+  lightbox.classList.add('open');
+  lightbox.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+};
+const closeLightbox = () => {
+  if (!lightbox) return;
+  lightbox.classList.remove('open');
+  lightbox.setAttribute('aria-hidden','true');
+  document.body.style.overflow='';
+};
+document.querySelectorAll('.clickable-figure').forEach(figure => {
+  const img = figure.querySelector('img');
+  const cap = figure.querySelector('figcaption')?.innerText || '';
+  figure.addEventListener('click', () => img && openLightbox(img.currentSrc || img.src, img.alt, cap));
+});
+closeBtn?.addEventListener('click', closeLightbox);
+lightbox?.addEventListener('click', e => { if(e.target===lightbox) closeLightbox(); });
+addEventListener('keydown', e => { if(e.key==='Escape') closeLightbox(); });
+
+</script><script src="assets/mobile-nav.js"></script></body></html>

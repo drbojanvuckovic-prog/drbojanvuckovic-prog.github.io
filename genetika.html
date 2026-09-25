@@ -1,0 +1,62 @@
+<!doctype html><html lang="sr-Latn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Genetika - Doktorska disertacija</title><meta name="description" content="Genetski polimorfizmi i multivarijantni nalazi."><meta name="theme-color" content="#081c2b"><link rel="stylesheet" href="assets/style.css"><link rel="stylesheet" href="assets/mobile-overrides.css"></head><body><div class="progress" aria-hidden="true"></div><header class="site-head"><div class="container nav">
+<a class="brand" href="index.html"><span class="brand-mark">BV</span><span class="brand-copy"><strong>Bojan Vučković</strong><small>Doktorska disertacija</small></span></a>
+<nav class="navlinks" aria-label="Glavna navigacija"><a class="" href="index.html">Početna</a><a class="" href="istrazivanje.html">Istraživanje</a><a class="" href="teorija.html">Teorijski okvir</a><a class="" href="metode.html">Metode</a><a class="active" href="genetika.html">Genetika</a><a class="" href="rezultati.html">Rezultati</a><a class="" href="doprinos.html">Doprinos</a><a class="" href="publikacije.html">Publikacije</a><a class="" href="zakljucak.html">Zaključak</a><a class="" href="galerija.html">Galerija</a></nav>
+<div class="nav-tools"><a class="tool-link" href="fulltext.html">Puni tekst</a><a class="tool-link" href="assets/disertacija.pdf">PDF</a></div>
+<button class="menu-btn" aria-label="Otvori meni">Meni</button></div></header><main><section class="page-hero"><div class="container page-hero-inner"><div><span class="eyebrow">04 - Genetika</span><h1>Sedam polimorfizama, dva nezavisna genetska signala</h1><p>U multivarijantnom logističkom modelu COL1A1 rs1800012 GT i COL3A1 rs1800255 GA zadržali su nezavisnu povezanost sa prisustvom prolapsa, dok za ostalih pet analiziranih polimorfizama takva nezavisna povezanost nije potvrđena.</p></div><div class="page-hero-orb"></div></div></section><section class="section"><div class="container surface"><div class="gene-grid genetic-signal-grid"><div class="gene hit"><strong>COL1A1</strong><small>rs1800012 - GT</small><div class="hitlabel">OR 4,529 - p=0,035</div></div><div class="gene hit"><strong>COL3A1</strong><small>rs1800255 - GA</small><div class="hitlabel">OR 5,777 - p=0,019</div></div><div class="gene"><strong>ELN</strong><small>rs2071307</small></div><div class="gene"><strong>MMP1</strong><small>rs1799750</small></div><div class="gene"><strong>MMP2</strong><small>rs243865</small></div><div class="gene"><strong>MMP3</strong><small>rs3025058</small></div><div class="gene"><strong>MMP9</strong><small>rs3918242</small></div></div></div></section><section class="section"><div class="container surface"><div class="section-head"><div><div class="kicker">Pregled</div><h2>Genetski nalazi u jednom tabelarnom prikazu</h2></div><p>Nezavisna asocijacija sa bolešću analizirana je odvojeno od drugih genetsko-proteinskih odnosa.</p></div><div class="table-card"><div class="table-wrap"><table><thead><tr><th>Gen / lokus</th><th>Varijanta</th><th>Nezavisna povezanost sa POP</th><th>Interpretativna napomena</th></tr></thead><tbody><tr><td>COL1A1</td><td>rs1800012 GT</td><td><span class="status positive">Da</span></td><td>OR 4,529, 95% CI 1,163-19,887, p=0,035</td></tr><tr><td>COL3A1</td><td>rs1800255 GA</td><td><span class="status positive">Da</span></td><td>OR 5,777, 95% CI 1,446-28,566, p=0,019</td></tr><tr><td>ELN</td><td>rs2071307</td><td><span class="status neutral">Ne</span></td><td>nije objasnio niže tkivne i plazmatske ELN vrednosti</td></tr><tr><td>MMP1</td><td>rs1799750</td><td><span class="status neutral">Ne</span></td><td>pokazao kontekstualni SNP x grupa efekat za pojedine biomarkere</td></tr><tr><td>MMP2</td><td>rs243865</td><td><span class="status neutral">Ne</span></td><td>bez nezavisne asocijacije, uprkos snažnom tkivnom MMP-2 signalu</td></tr><tr><td>MMP3</td><td>rs3025058</td><td><span class="status neutral">Ne</span></td><td>bez nezavisne asocijacije sa bolešću</td></tr><tr><td>MMP9</td><td>rs3918242</td><td><span class="status neutral">Ne</span></td><td>bez nezavisne asocijacije, uprkos najjačem tkivnom MMP-9 signalu</td></tr></tbody></table></div></div><div class="notice top-gap"><strong>Ključna interpretacija:</strong> genetski signal i proteinski fenotip nisu međusobno zamenljivi. Snažno promenjen proteinski put može postojati bez nezavisne asocijacije analiziranog SNP-a.</div></div></section></main><footer><div class="container footer-grid"><div><strong>Bojan Vučković</strong><br>Doktorska disertacija - Univerzitet u Nišu - Medicinski fakultet - 2026</div><div>POP - SUI - genetika - ekstracelularni matriks - tkivni biomarkeri - urologija</div></div></footer><div class="lightbox" id="lightbox" aria-hidden="true"><button class="lightbox-close" aria-label="Zatvori prikaz">×</button><img class="lightbox-image" alt="Uvećani prikaz ilustracije"><p class="lightbox-caption"></p></div><script>
+const progress = document.querySelector('.progress');
+const root = document.documentElement;
+const updateProgress = () => {
+  const total = root.scrollHeight - root.clientHeight;
+  const pct = total > 0 ? (root.scrollTop / total) * 100 : 0;
+  if (progress) progress.style.width = `${pct}%`;
+};
+addEventListener('scroll', updateProgress, {passive:true});
+updateProgress();
+
+const menu = document.querySelector('.menu-btn');
+const links = document.querySelector('.navlinks');
+menu?.addEventListener('click', () => links?.classList.toggle('open'));
+links?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+const search = document.querySelector('#siteSearch');
+const info = document.querySelector('#searchInfo');
+const searchBlocks = [...document.querySelectorAll('[data-search]')];
+search?.addEventListener('input', () => {
+  const q = search.value.trim().toLocaleLowerCase('sr');
+  searchBlocks.forEach(el => el.classList.remove('search-hit'));
+  if (!q) { if(info) info.textContent='Pretraga obuhvata glavne tematske celine ovog sajta.'; return; }
+  const hits = searchBlocks.filter(el => el.innerText.toLocaleLowerCase('sr').includes(q));
+  hits.forEach(el => el.classList.add('search-hit'));
+  if(info) info.textContent = hits.length ? `Pronađeno tematskih blokova: ${hits.length}.` : 'Nema rezultata u sažetom prikazu. Otvorite puni tekst za detaljnu pretragu.';
+  hits[0]?.scrollIntoView({behavior:'smooth',block:'center'});
+});
+
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = lightbox?.querySelector('.lightbox-image');
+const lightboxCaption = lightbox?.querySelector('.lightbox-caption');
+const closeBtn = lightbox?.querySelector('.lightbox-close');
+const openLightbox = (src, alt, caption) => {
+  if (!lightbox || !lightboxImg || !lightboxCaption) return;
+  lightboxImg.src = src;
+  lightboxImg.alt = alt || '';
+  lightboxCaption.textContent = caption || alt || '';
+  lightbox.classList.add('open');
+  lightbox.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+};
+const closeLightbox = () => {
+  if (!lightbox) return;
+  lightbox.classList.remove('open');
+  lightbox.setAttribute('aria-hidden','true');
+  document.body.style.overflow='';
+};
+document.querySelectorAll('.clickable-figure').forEach(figure => {
+  const img = figure.querySelector('img');
+  const cap = figure.querySelector('figcaption')?.innerText || '';
+  figure.addEventListener('click', () => img && openLightbox(img.currentSrc || img.src, img.alt, cap));
+});
+closeBtn?.addEventListener('click', closeLightbox);
+lightbox?.addEventListener('click', e => { if(e.target===lightbox) closeLightbox(); });
+addEventListener('keydown', e => { if(e.key==='Escape') closeLightbox(); });
+
+</script><script src="assets/mobile-nav.js"></script></body></html>

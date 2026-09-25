@@ -2,18 +2,18 @@
 <html lang="sr-Latn">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Puni tekst disertacije - Bojan Vučković</title>
-<meta name="description" content="Puni tekst doktorske disertacije Bojana Vučkovića, Univerzitet u Nišu, Medicinski fakultet, 2026.">
+<title>Kompletan tekst disertacije - Bojan Vučković</title>
+<meta name="description" content="Kompletan tekst doktorske disertacije Bojana Vučkovića, Univerzitet u Nišu, Medicinski fakultet, 2026.">
 <link rel="stylesheet" href="assets/style.css"><link rel="stylesheet" href="assets/mobile-overrides.css"></head>
 <body>
 <div class="progress" aria-hidden="true"></div>
 <header class="site-head"><div class="container nav">
 <a class="brand" href="index.html"><span class="brand-mark">BV</span><span class="brand-copy"><strong>Bojan Vučković</strong><small>Doktorska disertacija</small></span></a>
 <nav class="navlinks" aria-label="Glavna navigacija"><a href="index.html">Početna</a><a href="istrazivanje.html">Istraživanje</a><a href="teorija.html">Teorijski okvir</a><a href="metode.html">Metode</a><a href="genetika.html">Genetika</a><a href="rezultati.html">Rezultati</a><a href="doprinos.html">Doprinos</a><a href="publikacije.html">Publikacije</a><a href="zakljucak.html">Zaključak</a><a href="galerija.html">Galerija</a></nav>
-<div class="nav-tools"><a class="tool-link" href="fulltext.html">Puni tekst</a><a class="tool-link" href="assets/disertacija.pdf">PDF</a></div>
+<div class="nav-tools"><a class="tool-link" href="fulltext.html">Kompletan tekst</a><a class="tool-link" href="assets/disertacija.pdf">PDF</a></div>
 <button class="menu-btn" aria-label="Otvori meni">Meni</button></div></header>
-<section class="page-hero"><div class="container page-hero-inner"><div><span class="eyebrow">Puni tekst disertacije</span><h1>Kompletan sadržaj u digitalnom prikazu</h1><p>Celokupan tekst doktorske disertacije organizovan je po poglavljima radi lakšeg čitanja, navigacije i pretrage, uz stalno dostupan pristup originalnom PDF dokumentu.</p></div><div class="page-hero-orb"></div></div></section>
-<div class="reader-toolbar"><a href="index.html">← Početna</a><a href="assets/disertacija.pdf">Originalni PDF</a><input id="q" placeholder="Pretraži puni tekst..." aria-label="Pretraži puni tekst"></div>
+<section class="page-hero"><div class="container page-hero-inner"><div><span class="eyebrow">Kompletan tekst disertacije</span><h1>Kompletan sadržaj u digitalnom prikazu</h1><p>Celokupan tekst doktorske disertacije organizovan je po poglavljima radi lakšeg čitanja, navigacije i pretrage, uz stalno dostupan pristup originalnom PDF dokumentu.</p></div><div class="page-hero-orb"></div></div></section>
+<div class="reader-toolbar"><a href="index.html">← Početna</a><a href="assets/disertacija.pdf">Originalni PDF</a><input id="q" placeholder="Pretraži kompletan tekst..." aria-label="Pretraži kompletan tekst"></div>
 <main class="reader-wrap"><p class="reader-lead">Bojan Vučković - Univerzitet u Nišu, Medicinski fakultet, 2026. Digitalni tekst je organizovan po poglavljima radi lakše pretrage i čitanja. Za originalni prelom, tabele, figure i konačnu verifikaciju sadržaja dostupan je izvorni PDF disertacije.</p>
 <nav class="reader-toc"><a href="#front">Prednje strane, rezime i sadržaj</a><a href="#intro">1. Uvod</a><a href="#aims">2. Cilj i hipoteze istraživanja</a><a href="#methods">3. Materijali i metode</a><a href="#results">4. Rezultati</a><a href="#discussion">5. Diskusija</a><a href="#conclusion">6. Zaključak</a><a href="#references">7. Literatura</a><a href="#bio">8. Biografija i završne strane</a></nav>
 <section class="reader-chapter" id="front"><h2>Prednje strane, rezime i sadržaj</h2><article class="reader-page" id="p1"><div class="reader-page-no">PDF strana 1</div><pre>UNIVERZITET U NIŠU
@@ -10636,7 +10636,7 @@ search?.addEventListener('input', () => {
   if (!q) { if(info) info.textContent='Pretraga obuhvata glavne tematske celine ovog sajta.'; return; }
   const hits = searchBlocks.filter(el => el.innerText.toLocaleLowerCase('sr').includes(q));
   hits.forEach(el => el.classList.add('search-hit'));
-  if(info) info.textContent = hits.length ? `Pronađeno tematskih blokova: ${hits.length}.` : 'Nema rezultata u sažetom prikazu. Otvorite puni tekst za detaljnu pretragu.';
+  if(info) info.textContent = hits.length ? `Pronađeno tematskih blokova: ${hits.length}.` : 'Nema rezultata u sažetom prikazu. Otvorite kompletan tekst za detaljnu pretragu.';
   hits[0]?.scrollIntoView({behavior:'smooth',block:'center'});
 });
 

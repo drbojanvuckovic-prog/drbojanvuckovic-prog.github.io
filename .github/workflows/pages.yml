@@ -41,11 +41,12 @@ jobs:
             exit 1
           fi
 
-          rm -rf _portal_unpack
-          mkdir -p _portal_unpack
-          unzip -q "$ZIP" -d _portal_unpack
+          TEMP_ROOT="${RUNNER_TEMP}/portal_unpack"
+          rm -rf "$TEMP_ROOT"
+          mkdir -p "$TEMP_ROOT"
+          unzip -q "$ZIP" -d "$TEMP_ROOT"
 
-          INDEX="$(find _portal_unpack -maxdepth 4 -type f -name index.html -print -quit)"
+          INDEX="$(find "$TEMP_ROOT" -maxdepth 4 -type f -name index.html -print -quit)"
           if [ -z "$INDEX" ]; then
             echo "index.html not found inside portal ZIP."
             exit 1
@@ -76,7 +77,6 @@ jobs:
               p.write_text(s, encoding="utf-8")
           PY
 
-          rm -rf _portal_unpack
           touch .nojekyll
 
       - name: Commit published site files

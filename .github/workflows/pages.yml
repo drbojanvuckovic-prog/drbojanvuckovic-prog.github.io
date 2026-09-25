@@ -74,6 +74,7 @@ jobs:
               if "assets/mobile-nav.js" not in s:
                   s = s.replace("</body>", js + "</body>", 1)
 
+              s = s.replace("Višenivojska integracija u jednoj kohorti", "Višeslojna integracija u jednoj kohorti")
               p.write_text(s, encoding="utf-8")
           PY
 

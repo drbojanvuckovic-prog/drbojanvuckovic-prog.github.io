@@ -75,6 +75,7 @@ jobs:
                   s = s.replace("</body>", js + "</body>", 1)
 
               s = s.replace("Višenivojska integracija u jednoj kohorti", "Višeslojna integracija u jednoj kohorti")
+              s = s.replace("Puni tekst", "Kompletan tekst").replace("puni tekst", "kompletan tekst")
               p.write_text(s, encoding="utf-8")
           PY
 

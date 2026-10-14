@@ -272,7 +272,13 @@ function setPlay(p){play=p;forcePaint=true;document.getElementById('pp').textCon
 document.getElementById('go').onclick=()=>{document.getElementById('ov').style.display='none';try{audio()}catch(e){}setPlay(true)};
 document.getElementById('pp').onclick=()=>{if(T>=540)T=0;setPlay(!play)};
 document.getElementById('sn').onclick=e=>{snd=1-snd;e.target.textContent='Zvuk: '+(snd?'uključen':'isključen')};
-trk.onclick=e=>{const r=e.currentTarget.getBoundingClientRect();T=cl((e.clientX-r.left)/r.width)*540;forcePaint=true};trk.addEventListener('keydown',e=>{const step=e.shiftKey?30:5;if(e.key==='ArrowLeft')T=cl(T-step,0,540);else if(e.key==='ArrowRight')T=cl(T+step,0,540);else if(e.key==='Home')T=0;else if(e.key==='End')T=540;else return;e.preventDefault();forcePaint=true});
+function seekAt(e){const r=trk.getBoundingClientRect();T=cl((e.clientX-r.left)/r.width)*540;forcePaint=true}
+trk.onclick=seekAt;
+let isScrubbing=false;
+trk.addEventListener('pointerdown',e=>{isScrubbing=true;trk.setPointerCapture?.(e.pointerId);seekAt(e)});
+trk.addEventListener('pointermove',e=>{if(isScrubbing)seekAt(e)});
+trk.addEventListener('pointerup',()=>{isScrubbing=false});
+trk.addEventListener('pointercancel',()=>{isScrubbing=false});trk.addEventListener('keydown',e=>{const step=e.shiftKey?30:5;if(e.key==='ArrowLeft')T=cl(T-step,0,540);else if(e.key==='ArrowRight')T=cl(T+step,0,540);else if(e.key==='Home')T=0;else if(e.key==='End')T=540;else return;e.preventDefault();forcePaint=true});
 addEventListener('keydown',e=>{if(e.code=='Space'&&document.getElementById('ov').style.display=='none'){e.preventDefault();setPlay(!play)}});
 addEventListener("resize",()=>{forcePaint=true});document.addEventListener("visibilitychange",()=>{if(document.hidden&&play)setPlay(false)});requestAnimationFrame(frame);
 </script></body></html>

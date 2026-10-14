@@ -145,7 +145,7 @@ glow(p,8*p[2],K.c,a);glow(q,8*q[2],K.v,a)}
 [[900,'ELN',0],[1500,'MMP1',0],[2100,'COL1A1 rs1800012',1],[2700,'MMP2',0],[3200,'MMP3',0],[3900,'COL3A1 rs1800255',1],[4500,'MMP9',0]].forEach(([z,n,s])=>{const d=z-cam;if(d<60||d>3000)return;const p=P(0,0,d),pu=s?.6+.4*Math.sin(T*3):.45,a=cl(1-d/3000)*cl(d/200),c=s?K.a:K.x;
 g.strokeStyle=`rgba(${c},${a*pu})`;g.lineWidth=s?3:1.5;g.beginPath();g.arc(p[0],p[1],300*p[2],0,6.2832);g.stroke();
 if(s){for(let k=0;k<26;k++){const an=k/26*6.2832+T*2,r2=300*p[2]*(1+.35*Math.sin(T*4+k));glow([p[0]+Math.cos(an)*r2,p[1]+Math.sin(an)*r2],3,K.a,a*.8)}glow(p,26*p[2],K.a,a*.6)}txt(n,p[0],p[1]-310*p[2]-12,c,a,(s?24:18)*p[2]+9)});
-img('chr',W*.5,H*.4,Math.min(W*.42,H*.8),sm((u-.62)/.12)*sm((1-u)/.08)*.8);if(u>.65)txt('7 polimorfizama na 6 hromozoma',W/2,H*.12,K.b,sm((u-.66)/.08),22)}
+img('chr',W*.5,H*.4,Math.min(W*.42,H*.8),sm((u-.62)/.12)*sm((1-u)/.08)*.8);if(u>.65)txt('7 SNP · 6 hromozoma',W/2,H*.12,K.b,sm((u-.66)/.08),22)}
 // 1 uvod: hamak sa organom koji tone
 const hs=(a,b,c)=>(Math.imul(a*73+b*31+c*17+9,2654435761)>>>0)/4294967296;
 function sUvod(u,T){const cx=W/2,cy=H*.4,hw=Math.min(W*.33,420),dp=Math.min(H*.25,200),r=Math.min(H*.06,44),sag=sm((u-.3)/.45),fail=sm((u-.55)/.35),N=44;
@@ -176,7 +176,7 @@ for(let i=0;i<121;i++){const ph=i*2.4,rr=Math.sqrt(i)*9,x=cx+rr*Math.cos(ph+T*.3
 txt('ukupno 121 žena',cx,cy+130,K.b,.95,26);dot(cx-84,cy+151,4,K.a,1);txt('ispitna grupa: 60',cx-72,cy+156,K.a,1,16,'left');dot(cx-84,cy+177,4,K.c,1);txt('kontrolna grupa: 61',cx-72,cy+182,K.c,1,16,'left')}
 // 3 i 11 hipoteze
 const HY=['H1: genetske varijante','H2: nezavisna povezanost','H3: promene u tkivu','H4: tkivo i plazma','H5: SNP i biomarkeri','H6: interakcije','H7: anatomija i simptomi','H8: ROC analiza','H9: inkontinencija'],VD=[1,2,2,2,1,1,1,2,0];
-function sHyp(u,T,ver){const D=1500,tl=.95,R=430,n=9,c=P(0,0,D);glow(c,16*c[2]*(1+.15*Math.sin(T*2)),K.b,.9);txt('glavna istraživačka hipoteza',c[0],c[1]+50,K.b,.9,19);txt(ver?'':'genetika · klinika · tkivo',c[0],c[1]+74,K.x,1,15);
+function sHyp(u,T,ver){const D=1500,tl=.95,R=430,n=9,c=P(0,0,D);glow(c,16*c[2]*(1+.15*Math.sin(T*2)),K.b,.9);txt('polazna hipoteza',c[0],c[1]+50,K.b,.9,19);txt(ver?'':'genetika · klinika · tkivo',c[0],c[1]+74,K.x,1,15);
 for(let k=0;k<n;k++){const a=k/n*6.2832+T*.08,x=R*Math.cos(a),z0=R*Math.sin(a),p=P(x,-z0*Math.sin(tl),z0*Math.cos(tl)+D),r=sm(u*11-k*1.1);if(r<.01)continue;
 const cc=ver?[K.m,K.a,K.c][VD[k]]:K.v;g.strokeStyle=`rgba(${cc},${.3*r})`;g.lineWidth=1;g.beginPath();g.moveTo(c[0],c[1]);g.lineTo(p[0],p[1]);g.stroke();const rad=16*p[2]*r;glow(p,rad,cc,.9);
 if(ver){g.strokeStyle=`rgba(4,5,12,.9)`;g.lineWidth=2;const v=VD[k];if(v==2){dot(p[0],p[1],rad*.5,K.b,1)}else if(v==1){g.fillStyle=`rgba(${K.b},1)`;g.beginPath();g.arc(p[0],p[1],rad*.6,-1.57,1.57);g.fill()}else{g.beginPath();g.moveTo(p[0]-rad*.4,p[1]-rad*.4);g.lineTo(p[0]+rad*.4,p[1]+rad*.4);g.moveTo(p[0]+rad*.4,p[1]-rad*.4);g.lineTo(p[0]-rad*.4,p[1]+rad*.4);g.stroke()}}
@@ -190,7 +190,7 @@ pairs([['starost, god.',50.95,58.27],['BMI, kg/m²',25.05,29.6]],u-.15,W*.58,H*.
 function sFor(u,T){const it=[['COL1A1 rs1800012 (GT)',4.529,1.163,19.887,1],['COL3A1 rs1800255 (GA)',5.777,1.446,28.566,1],['MMP1 rs1799750 (2G)',2.272,.625,8.953,0],['BMI, po jedinici',1.722,1.404,2.234,2]];
 const x0=W*.4,x1=W*.93,lx=v=>x0+(Math.log(v)-Math.log(.5))/(Math.log(32)-Math.log(.5))*(x1-x0);
 [.5,1,2,4,8,16,32].forEach(v=>{g.strokeStyle=v==1?`rgba(${K.b},.7)`:'rgba(120,130,200,.2)';g.lineWidth=v==1?1.5:1;g.beginPath();g.moveTo(lx(v),H*.2);g.lineTo(lx(v),H*.72);g.stroke();txt(String(v).replace('.',','),lx(v),H*.76,K.x,1,14)});
-txt('Odnos šansi (OR), logaritamska skala',(x0+x1)/2,H*.82,K.x,1,15);
+txt('Odnos šansi — logaritamska skala',(x0+x1)/2,H*.82,K.x,1,15);
 it.forEach(([l,o,lo,hi,s],i)=>{const y=H*(.28+i*.12),p=sm((u-.08-i*.1)/.3),c=s==1?K.a:s==2?K.c:K.x;txt(l,W*.05,y+5,c,.95,17,'left');
 if(p<.02)return;const a=lx(Math.exp(lerp(Math.log(o),Math.log(lo),p))),b=lx(Math.exp(lerp(Math.log(o),Math.log(hi),p)));g.strokeStyle=`rgba(${c},.9)`;g.lineWidth=3;g.beginPath();g.moveTo(a,y);g.lineTo(b,y);g.stroke();glow([lx(o),y],9,c,1);txt(fmt(o,3),lx(o),y-16,c,p,16)})}
 // 7 tkivo
@@ -217,7 +217,7 @@ const d0=pr(0,0,0),d1=pr(1,1,0);g.setLineDash([6,8]);g.beginPath();g.moveTo(d0[0
 C.forEach(([k,c,l],i)=>{const pg=sm((u-.06-i*.08)/.4),n=Math.floor(120*pg);if(n<2)return;const zl=(1-i)*170;g.strokeStyle=`rgba(${c},.9)`;g.lineWidth=3.2;g.beginPath();let e;
 for(let j=0;j<=n;j++){const f=j/120,p=pr(f,1-Math.pow(1-f,k),zl);j?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1]);e=p}g.stroke();glow(e,6,c,1)});
 const L=[['MMP-9',.977,1],['MMP-2',.958,1],['COL1',.898,1],['ELN',.846,1],['COL3',.818,1],['MMP-1',.751,1],['MMP-3',.743,1],['ELN',.719,0],['MMP-9',.553,0]],x=W*.64,w=W*.3;
-g.globalCompositeOperation='source-over';g.fillStyle='rgba(4,5,14,.6)';g.fillRect(x-14,H*.1,w+28,H*.7);g.globalCompositeOperation='lighter';txt('AUC pojedinačnih biomarkera',x,H*.1+26,K.b,.9,17,'left');
+g.globalCompositeOperation='source-over';g.fillStyle='rgba(4,5,14,.6)';g.fillRect(x-14,H*.1,w+28,H*.7);g.globalCompositeOperation='lighter';txt(W<760?'AUC':'AUC pojedinačnih biomarkera',x,H*.1+26,K.b,.9,17,'left');
 L.forEach(([n,a,t],i)=>{const y=H*.2+i*H*.065,p=sm((u-.1-i*.04)/.3),c=t?K.a:K.c;txt(n+(t?' tkivo':' plazma'),x,y,K.b,.9,15,'left');g.fillStyle=`rgba(${c},.35)`;g.fillRect(x+w*.4,y-12,w*.46*a*p,12);g.fillStyle=`rgba(${c},1)`;g.fillRect(x+w*.4+w*.46*a*p-2,y-12,2,12);txt(fmt(a*p,3),x+w,y,c,1,15,'right')})}
 // 10 SUI
 function sSUI(u,T){const cx=W*.5,cy=H*.44,r=Math.min(W,H)*.3,O=['COL1A1','COL3A1','ELN','MMP1','MMP2','MMP3','MMP9'];
@@ -225,7 +225,7 @@ for(let i=0;i<60;i++){const x=cx-r*.9+(i%10)*r*.2,y=cy-r*.5+Math.floor(i/10)*r*.
 txt('15 od 60 (25%) ima SUI',cx,cy+r*.78,K.m,.95,22);let dead=0;
 O.forEach((n,k)=>{const a=k/7*6.2832-1.57+T*.05,x=cx+Math.cos(a)*r*1.55,y=cy+Math.sin(a)*r*1.1,d=sm((u-.3-k*.07)/.1);if(d>.5)dead++;const c=d>.5?K.x:K.v;
 g.strokeStyle=`rgba(${c},.7)`;g.lineWidth=2;g.beginPath();g.arc(x,y,20,0,6.2832);g.stroke();if(d>.5){g.beginPath();g.moveTo(x-8,y-8);g.lineTo(x+8,y+8);g.stroke()}else glow([x,y],8,c,.9);txt(n,x,y+42,c,.95,15)});
-txt('Bez potvrđene SNP veze sa SUI u ovoj grupi',cx,H*.12,K.b,.95,22)}
+txt('SUI: bez potvrđene SNP veze',cx,H*.12,K.b,.95,22)}
 function sCon(u,T){const D=lerp(800,1700,sm(u)),L=[['genetska predispozicija',K.c],['klinički faktori',K.a],['lokalni matriks',K.m]];
 L.forEach(([n,c],k)=>{const tl=1+k*.5,ph=T*.3+k*2.1,pts=[];for(let j=0;j<=100;j++){const a=j/100*6.2832,x=360*Math.cos(a),y0=360*Math.sin(a),y=y0*Math.cos(tl),z=y0*Math.sin(tl);pts.push(P(x*Math.cos(ph)-z*Math.sin(ph),y,x*Math.sin(ph)+z*Math.cos(ph)+D))}
 g.strokeStyle=`rgba(${c},.75)`;g.lineWidth=2;g.beginPath();pts.forEach((p,i)=>i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1]));g.stroke();glow(pts[Math.floor(((T*.12+k/3)%1)*100)],9,c,1);txt(n,W/2,H*.12+k*28,c,.9,20)})}

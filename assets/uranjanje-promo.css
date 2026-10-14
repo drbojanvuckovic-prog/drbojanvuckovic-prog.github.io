@@ -1,0 +1,26 @@
+
+/* Disertacija: link ka devetominutnoj naučnoj prezentaciji */
+.immersion-teaser{padding-top:8px}
+.immersion-panel{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr);align-items:center;gap:28px;min-height:310px;padding:clamp(24px,4vw,48px);border-radius:30px;overflow:hidden;border:1px solid rgba(90,189,203,.35);background:radial-gradient(circle at 76% 42%,rgba(22,93,129,.5),transparent 36%),linear-gradient(115deg,#061626 0%,#0b2838 62%,#082233 100%);box-shadow:0 22px 60px rgba(8,31,46,.2);color:#f4fbfe}
+.immersion-panel:before{content:"";position:absolute;inset:0;z-index:-1;opacity:.3;background-image:linear-gradient(rgba(127,220,231,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(127,220,231,.08) 1px,transparent 1px);background-size:35px 35px}
+.immersion-copy{position:relative;z-index:2;max-width:670px}
+.immersion-eyebrow{display:flex;flex-wrap:wrap;align-items:center;gap:10px;color:#9ce3ea;font-weight:750;font-size:.75rem;text-transform:uppercase;letter-spacing:.15em}
+.immersion-eyebrow span{width:28px;height:1px;background:#dca631}
+.immersion-copy h2{margin:14px 0 13px;color:#fff;font-size:clamp(1.9rem,3vw,3.3rem);line-height:1.09;letter-spacing:-.025em}
+.immersion-copy h2 em{font-style:normal;color:#f1c66f}
+.immersion-copy p{margin:0 0 23px;color:#bad1df;line-height:1.7;font-size:clamp(.95rem,1.13vw,1.06rem)}
+.immersion-action{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:52px;padding:14px 22px;border-radius:15px;background:linear-gradient(135deg,#ecc363,#dc9f2c);color:#10202a;font-weight:850;box-shadow:0 9px 28px rgba(222,164,28,.2);transition:transform .2s,box-shadow .2s}
+.immersion-action:hover{transform:translateY(-2px);box-shadow:0 13px 30px rgba(222,164,28,.32)}
+.immersion-action:focus-visible{outline:3px solid #9de5f0;outline-offset:4px}
+.immersion-meta{display:flex;gap:14px;flex-wrap:wrap;margin-top:17px;color:#9cb7c9;font-size:.81rem}
+.immersion-meta span{display:inline-flex;gap:6px;align-items:center}
+.immersion-art{position:relative;min-height:260px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.immersion-orbit{position:absolute;inset:50% auto auto 50%;width:240px;height:240px;margin:-120px 0 0 -120px;border:1px solid rgba(109,211,231,.5);border-radius:50%;box-shadow:0 0 42px rgba(85,197,219,.14),inset 0 0 55px rgba(95,188,205,.11)}
+.immersion-orbit:nth-child(2){width:185px;height:185px;margin:-92.5px 0 0 -92.5px;border-color:rgba(229,170,51,.55);transform:rotateX(63deg) rotateZ(25deg)}
+.immersion-orbit:nth-child(3){width:290px;height:290px;margin:-145px 0 0 -145px;border-style:dashed;border-color:rgba(130,194,221,.18);transform:rotateY(65deg)}
+.immersion-core{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;z-index:1;width:142px;height:142px;border-radius:50%;background:radial-gradient(circle at 50% 35%,#163e58,#071522 72%);border:1px solid rgba(241,198,111,.65);box-shadow:0 0 35px rgba(100,201,227,.12),0 0 65px rgba(222,164,28,.14)}
+.immersion-core strong{font-size:2.2rem;font-weight:800;color:#f1ca79;line-height:1}
+.immersion-core span{color:#c9dfec;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
+@media(max-width:850px){.immersion-panel{grid-template-columns:minmax(0,1fr) 230px;gap:10px}.immersion-art{min-height:230px}.immersion-orbit{transform:scale(.86)}}
+@media(max-width:760px){.immersion-teaser{padding-top:0}.immersion-panel{grid-template-columns:1fr;gap:0;padding:26px 21px 19px;min-height:auto;border-radius:23px}.immersion-copy h2{font-size:clamp(1.8rem,8vw,2.45rem);margin:12px 0}.immersion-copy p{font-size:.92rem;line-height:1.63;margin-bottom:18px}.immersion-action{width:100%;min-height:51px;font-size:.93rem}.immersion-meta{font-size:.72rem;gap:8px 13px;margin-top:12px}.immersion-art{min-height:135px;order:-1}.immersion-orbit{width:170px;height:170px;margin:-85px 0 0 -85px}.immersion-orbit:nth-child(2){width:134px;height:134px;margin:-67px 0 0 -67px}.immersion-orbit:nth-child(3){width:200px;height:200px;margin:-100px 0 0 -100px}.immersion-core{width:96px;height:96px}.immersion-core strong{font-size:1.55rem}.immersion-core span{font-size:.62rem}}
+@media(prefers-reduced-motion:reduce){.immersion-action{transition:none}}

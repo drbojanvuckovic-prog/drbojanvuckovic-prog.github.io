@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="sr-Latn"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Uranjanje kroz disertaciju | Bojan Vučković</title><meta name="description" content="Interaktivni devetominutni prikaz doktorske disertacije o genetskoj predispoziciji, prolapsu organa male karlice i ECM biomarkerima."><meta name="theme-color" content="#04050c">
+<title>Video ilustracija disertacije | Bojan Vučković</title><meta name="description" content="Interaktivni devetominutni prikaz doktorske disertacije o genetskoj predispoziciji, prolapsu organa male karlice i ECM biomarkerima."><meta name="theme-color" content="#04050c">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500&display=swap">
 <style>
 :root{--bg:#04050c;--gold:#dea41c;--gl:rgba(255,190,40,.75);--cy:#6fd3e8}
@@ -82,11 +82,60 @@ canvas{position:fixed;inset:0;width:100%;height:100%}
   #edition{display:none}
 }
 @media(prefers-reduced-motion:reduce){#cap span{transition:none;filter:none}}
+
+/* Scene guide: a compact explanatory layer separate from the scientific animation. */
+#scene-guide[hidden],#chapters-menu[hidden]{display:none!important}
+#scene-guide{position:fixed;z-index:9;top:calc(61px + env(safe-area-inset-top,0px));right:clamp(14px,3vw,34px);width:min(350px,36vw);padding:14px 16px 12px;border:1px solid rgba(111,211,232,.28);border-radius:17px;background:linear-gradient(135deg,rgba(6,19,35,.86),rgba(4,8,21,.76));backdrop-filter:blur(14px);box-shadow:0 15px 38px rgba(0,0,0,.24);color:#e6f5f8;font-size:13px}
+.scene-guide-head{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+#scene-count{color:#edc56e;font-variant-numeric:tabular-nums;font-weight:700}
+#chapter-name{color:#a0e4e9;text-align:right}
+.scene-guide-note{font-size:13px;line-height:1.45;color:#e2eef5;padding:10px 0 6px}
+#scene-legend{display:flex;flex-wrap:wrap;gap:7px 12px;color:#d5e9f2;font-size:11px;line-height:1.3}
+#scene-legend:empty{display:none}
+.scene-swatch{display:inline-flex;align-items:center;gap:6px}
+.scene-swatch:before{content:"";display:inline-block;flex:0 0 auto;width:8px;height:8px;border-radius:50%;background:var(--swatch-color);box-shadow:0 0 10px var(--swatch-color)}
+.chapter-steps{display:flex;gap:5px;margin:10px 0 7px}
+.chapter-steps i{height:3px;flex:1;background:rgba(130,178,199,.24);border-radius:5px}
+.chapter-steps i.on{background:#e3ad4f;box-shadow:0 0 8px rgba(222,164,28,.3)}
+#chapters-toggle{font:inherit;color:#b2dfe7;font-size:12px;text-align:left;border:0;background:transparent;padding:4px 0;cursor:pointer;min-height:32px}
+#chapters-toggle:focus-visible,#chapters-menu button:focus-visible{outline:2px solid #6fd3e8;outline-offset:3px}
+#chapters-menu{position:absolute;right:0;top:calc(100% + 7px);width:min(310px,85vw);padding:8px;background:rgba(5,17,29,.97);border:1px solid rgba(111,211,232,.35);border-radius:15px;box-shadow:0 18px 40px rgba(0,0,0,.4);display:grid;gap:3px}
+#chapters-menu button{font:inherit;text-align:left;background:transparent;border:0;border-radius:9px;color:#e7f4f8;cursor:pointer;padding:10px 11px;min-height:40px}
+#chapters-menu button:hover{background:rgba(111,211,232,.11)}
+@media(max-width:760px){
+  #scene-guide{top:calc(94px + env(safe-area-inset-top,0px));right:12px;width:min(275px,calc(100vw - 24px));padding:10px 12px;border-radius:13px}
+  .scene-guide-head{font-size:10px}
+  .scene-guide-note{font-size:11px;padding:6px 0 5px;line-height:1.32}
+  #scene-legend{font-size:10px;gap:4px 8px}
+  #chapters-toggle{font-size:11px;min-height:29px}
+  .chapter-steps{margin:7px 0 4px}
+  #chapters-menu button{font-size:12px}
+}
+@media(max-height:580px) and (orientation:landscape){
+  #scene-guide{top:calc(8px + env(safe-area-inset-top,0px));right:10px;width:min(270px,39vw);padding:9px 11px}
+  .scene-guide-note{font-size:11px;padding:5px 0 2px}
+  #chapters-toggle{min-height:24px;font-size:11px}
+  .chapter-steps{margin:5px 0 2px}
+}
 </style></head><body>
-<a id="back" href="index.html" aria-label="Nazad na početnu stranu doktorske disertacije">← Nazad na disertaciju</a><div id="edition">Naučni prikaz · 9 minuta</div><canvas id="c" aria-hidden="true"></canvas>
+<a id="back" href="index.html" aria-label="Nazad na početnu stranu doktorske disertacije">← Nazad na disertaciju</a><div id="edition">Video ilustracija · 9 minuta</div><canvas id="c" aria-hidden="true"></canvas>
 <div id="cap" aria-live="off"><h2></h2><p></p><div id="mobileFacts"></div></div>
+<aside id="scene-guide" aria-label="Vodič kroz video ilustraciju" hidden>
+  <div class="scene-guide-head"><span id="scene-count">01 / 16</span><span id="chapter-name">Uvod</span></div>
+  <div class="scene-guide-note" id="scene-note">Šematski prikazi i rezultati istraživanja</div>
+  <div id="scene-legend" aria-label="Legenda prikaza"></div>
+  <div class="chapter-steps" id="chapter-steps" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+  <button type="button" id="chapters-toggle" aria-expanded="false" aria-controls="chapters-menu">Odaberi poglavlje <span aria-hidden="true">⌄</span></button>
+  <div id="chapters-menu" hidden aria-label="Poglavlja video ilustracije">
+    <button type="button" data-seek="0">01 · Uvod</button>
+    <button type="button" data-seek="88">02 · Metodologija</button>
+    <button type="button" data-seek="196">03 · Klinički i genetski rezultati</button>
+    <button type="button" data-seek="302">04 · Tkivni nalazi i biomarkeri</button>
+    <button type="button" data-seek="496">05 · Zaključci</button>
+  </div>
+</aside>
 <div id="bar"><button id="pp">Pauza</button><button id="sn">Zvuk: uključen</button><div id="trk" role="slider" tabindex="0" aria-label="Pozicija reprodukcije" aria-valuemin="0" aria-valuemax="540" aria-valuenow="0" aria-valuetext="0 minuta 0 sekundi"><div><span id="fill"></span></div></div><span id="tm">0:00 / 9:00</span></div>
-<div id="ov"><h1>Uranjanje</h1><p>Devetominutni vizuelni prikaz ciljeva, metodologije i najvažnijih rezultata doktorske disertacije. Za potpun prikaz preporučujemo ceo ekran i slušalice.</p><p class="hint">Prezentacija ima ambijentalnu zvučnu podlogu, a ključni nalazi prikazani su tekstom. Pokreće se na vaš zahtev.</p><button id="go">Pokreni prezentaciju</button></div>
+<div id="ov"><h1>Video ilustracija</h1><p>Devetominutni vizuelni prikaz ciljeva, metodologije i najvažnijih rezultata doktorske disertacije. Za potpun prikaz preporučujemo ceo ekran i slušalice.</p><p class="hint">Pojedini procesi prikazani su šematski; brojčani rezultati potiču iz disertacije. Ambijentalna zvučna podloga može se isključiti.</p><button id="go">Pokreni prezentaciju</button></div>
 <script>
 const cv=document.getElementById('c'),g=cv.getContext('2d');let W,H;
 function rs(){const d=Math.min(matchMedia("(max-width:760px)").matches?1.35:2,devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;g.setTransform(d,0,0,d,0,0)}
@@ -239,6 +288,27 @@ const SC=[sTitle,sUvod,sEcm,sMet,sGeno,(u,T)=>sHyp(u,T,0),sKli,sDNA,sFor,sTis,sH
 let T=0,play=false,last=performance.now(),ci=-1;
 const cap=document.getElementById('cap'),ch=cap.querySelector('h2'),cp=cap.querySelector('p'),fill=document.getElementById('fill'),tm=document.getElementById('tm'),trk=document.getElementById('trk'),facts=document.getElementById('mobileFacts');
 const MF=[["Doktorska disertacija · 2026"],["POP","SUI"],["Kolagen · elastin","Vezivno tkivo"],["121 ispitanica","60 sa POP · 61 kontrola"],["7 polimorfizama","TaqMan PCR"],["Genetika · klinika · tkivo"],["Starost · BMI · paritet"],["7 ispitanih SNP","2 povezana genotipa"],["COL1A1: OR 4,529","COL3A1: OR 5,777"],["COL1 ↓ · COL3 ↑","ELN ↓"],["H&E · Masson · Van Gieson","Vimentin IHC"],["MMP-1/2/3/9 ↑"],["MMP-9: AUC 0,977","MMP-2: AUC 0,958"],["SUI kod 15 od 60 žena"],["Potvrđene i nepotvrđene hipoteze"],["Potrebna nezavisna potvrda nalaza"]];
+const GUIDE=[["Uvod","Predstavljanje istraživanja i njegovog naučnog okvira."],["Uvod","Šematski prikaz anatomskih struktura koje pružaju potporu karličnim organima."],["Uvod","Poređenje vezivnog tkiva u kontrolnoj grupi i grupi sa prolapsom."],["Metodologija","U studiju je uključena 121 ispitanica, uz genetsku i kliničko-laboratorijsku analizu."],["Metodologija","TaqMan analiza: različiti signali označavaju analizirane genotipove."],["Metodologija","Polazna hipoteza povezuje genetske, kliničke i lokalne tkivne nalaze."],["Klinički i genetski rezultati","Prikaz nezavisnih kliničkih povezanosti u prilagođenom modelu."],["Klinički i genetski rezultati","Izdvojeni genotipovi povezani sa prolapsom: COL1A1 GT i COL3A1 GA."],["Klinički i genetski rezultati","Tačka predstavlja OR, a horizontalna linija interval pouzdanosti."],["Tkivni nalazi i biomarkeri","Uporedne vrednosti kolagena i elastina u tkivu."],["Tkivni nalazi i biomarkeri","Reprezentativni histološki i imunohistohemijski preparati."],["Tkivni nalazi i biomarkeri","Koncentracije MMP-1, MMP-2, MMP-3 i MMP-9 u tkivu."],["Tkivni nalazi i biomarkeri","ROC krive: viši AUC označava bolju diskriminativnu sposobnost."],["Tkivni nalazi i biomarkeri","Prikaz ispitanica sa i bez stres-urinarne inkontinencije."],["Zaključci","Pregled potvrđenih, delimično potvrđenih i nepotvrđenih hipoteza."],["Zaključci","Zajedničko tumačenje genetike, klinike i lokalnih tkivnih promena."]];
+const LEGENDS={"2":[["#6fd3e8","Kontrolna grupa"],["#f2b46b","Grupa sa POP"]],"3":[["#f2b46b","POP (60)"],["#6fd3e8","Kontrola (61)"]],"9":[["#6fd3e8","Kontrolna grupa"],["#f2b46b","Grupa sa POP"]],"11":[["#6fd3e8","Kontrolna grupa"],["#f2b46b","Grupa sa POP"]],"12":[["#f2b46b","Tkivo"],["#6fd3e8","Plazma"]],"13":[["#e0508f","SUI"],["#f2b46b","Bez SUI"]],"14":[["#6fd3e8","Potvrđeno"],["#f2b46b","Delimično"],["#e0508f","Nije potvrđeno"]]};
+const chapterStops=[0,88,196,302,496];
+const guideEl=document.getElementById('scene-guide'),sceneCount=document.getElementById('scene-count'),chapterName=document.getElementById('chapter-name'),sceneNote=document.getElementById('scene-note'),sceneLegend=document.getElementById('scene-legend'),chapterBars=[...document.querySelectorAll('#chapter-steps i')],chaptersToggle=document.getElementById('chapters-toggle'),chaptersMenu=document.getElementById('chapters-menu');
+let currentScene=-1;
+function closeChapters(){chaptersMenu.hidden=true;chaptersToggle.setAttribute('aria-expanded','false')}
+chaptersToggle.addEventListener('click',()=>{const open=chaptersMenu.hidden;chaptersMenu.hidden=!open;chaptersToggle.setAttribute('aria-expanded',String(open))});
+chaptersMenu.querySelectorAll('button[data-seek]').forEach(button=>button.addEventListener('click',()=>{T=Number(button.dataset.seek);forcePaint=true;closeChapters()}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeChapters()});
+function refreshSceneGuide(){
+  const i=Math.max(0,S.findIndex(([a,b])=>T>=a&&T<b));
+  if(i===currentScene)return;
+  currentScene=i;
+  sceneCount.textContent=String(i+1).padStart(2,'0')+' / 16';
+  chapterName.textContent=GUIDE[i][0];
+  sceneNote.textContent=GUIDE[i][1];
+  const entries=LEGENDS[i]||[];
+  sceneLegend.replaceChildren(...entries.map(([color,label])=>{const el=document.createElement('span');el.className='scene-swatch';el.style.setProperty('--swatch-color',color);el.textContent=label;return el}));
+  const active=chapterStops.reduce((n,start,j)=>T>=start?j:n,0);
+  chapterBars.forEach((node,j)=>node.classList.toggle('on',j<=active));
+}
 const wr=s=>s.split(' ').map((w,i)=>`<span style="transition-delay:${i*.06}s">${w}</span>`).join(' ');
 function draw(){g.globalCompositeOperation='source-over';g.globalAlpha=1;g.fillStyle='#04050c';g.fillRect(0,0,W,H);g.globalCompositeOperation='lighter';
 S.forEach(([s0,s1],i)=>{const A=sm((T-s0)/2.5)*sm((s1-T)/2.5);if(A<.002)return;g.globalAlpha=A*.55;const gr=g.createRadialGradient(W/2,H/2,0,W/2,H/2,Math.max(W,H)*.7);gr.addColorStop(0,`rgba(${TINT[i]},.55)`);gr.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=gr;g.fillRect(0,0,W,H);
@@ -246,6 +316,7 @@ g.globalAlpha=A;if(SC[i])SC[i]((T-s0)/(s1-s0),T)});
 g.globalAlpha=1;stars(T);g.globalCompositeOperation='source-over';const v=g.createRadialGradient(W/2,H/2,H*.4,W/2,H/2,Math.max(W,H)*.75);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(2,3,8,.75)');g.fillStyle=v;g.fillRect(0,0,W,H);
 const k=CAP.findIndex(c=>T>=c[0]&&T<c[1]);if(k!=ci){ci=k;if(k>=0){ch.innerHTML=wr(CAP[k][2]);cp.innerHTML=CAP[k][3];cap.className=CAP[k][4]?'big':'';void cap.offsetWidth;cap.classList.add('on');facts.replaceChildren(...(MF[k]||[]).map(t=>{const e=document.createElement('span');e.textContent=t;return e}))}else{cap.classList.remove('on');facts.replaceChildren()}}
 cap.style.opacity=k<0?0:Math.min(sm((T-CAP[k][0])/1.2),sm((CAP[k][1]-T)/1.2));
+refreshSceneGuide();
 fill.style.width=T/540*100+'%';const f=n=>Math.floor(n/60)+':'+String(Math.floor(n%60)).padStart(2,'0');tm.textContent=f(T)+' / 9:00';trk.setAttribute('aria-valuenow',String(Math.round(T)));trk.setAttribute('aria-valuetext',f(T));
 if(lp){lp.frequency.value=260+1400*sm((T-60)/400)*(1-sm((T-528)/12))+300*Math.sin(T*.4);mg.gain.value=sm(T/6)*sm((540-T)/6)*.55*snd}}
 let lastPaint=0,forcePaint=true;const paintEvery=matchMedia("(max-width:760px)").matches?1000/30:1000/50;function frame(n){const dt=Math.min(.1,(n-last)/1000);last=n;if(play){T=Math.min(540,T+dt);if(T>=540){play=false;document.getElementById("pp").textContent="Ponovi";if(AC)AC.suspend()}}if((play||forcePaint)&&n-lastPaint>=paintEvery){draw();lastPaint=n;forcePaint=false}requestAnimationFrame(frame)}
@@ -254,7 +325,7 @@ function audio(){if(AC)return;AC=new(window.AudioContext||window.webkitAudioCont
 [55,82.4,110.2,164.9,220.5,329.6].forEach((f,i)=>{const o=AC.createOscillator();o.type=i%2?'sine':'sawtooth';o.frequency.value=f;o.detune.value=(i-2)*5;const gg=AC.createGain();gg.gain.value=.14/(i+1);o.connect(gg);gg.connect(lp);o.start();
 const l=AC.createOscillator(),l2=AC.createGain();l.frequency.value=.04+i*.03;l2.gain.value=.06/(i+1);l.connect(l2);l2.connect(gg.gain);l.start()})}
 function setPlay(p){play=p;forcePaint=true;document.getElementById('pp').textContent=p?'Pauza':'Nastavi';if(AC)p?AC.resume():AC.suspend()}
-document.getElementById('go').onclick=()=>{document.getElementById('ov').style.display='none';try{audio()}catch(e){}setPlay(true)};
+document.getElementById('go').onclick=()=>{document.getElementById('ov').style.display='none';guideEl.hidden=false;currentScene=-1;try{audio()}catch(e){}setPlay(true)};
 document.getElementById('pp').onclick=()=>{if(T>=540)T=0;setPlay(!play)};
 document.getElementById('sn').onclick=e=>{snd=1-snd;e.target.textContent='Zvuk: '+(snd?'uključen':'isključen')};
 function seekAt(e){const r=trk.getBoundingClientRect();T=cl((e.clientX-r.left)/r.width)*540;forcePaint=true}

@@ -184,6 +184,71 @@ canvas{position:fixed;inset:0;width:100%;height:100%}
   #chapters-toggle{min-height:28px;font-size:10px;padding:4px 7px}
   #cap,#cap.big{max-height:40dvh}
 }
+
+/* Sažimanje tekstualne kartice nakon 15 sekundi svake scene.
+   Korisnik potom vidi samo naslov uz samu kontrolnu traku. */
+#cap{transition:bottom .55s ease,padding .55s ease,max-width .55s ease,border-radius .55s ease}
+#cap p{max-height:240px;overflow:hidden;transition:max-height .55s ease,opacity .28s ease}
+#cap.compact{
+  bottom:calc(75px + env(safe-area-inset-bottom,0px));
+  padding:10px 16px;max-width:min(780px,78vw);
+  background:linear-gradient(90deg,rgba(4,8,18,.9),rgba(4,8,18,.6));
+  border-radius:12px;overflow:hidden;
+}
+#cap.compact p{max-height:0;opacity:0;visibility:hidden}
+#cap.compact h2,#cap.big.compact h2{
+  margin:0;max-width:none;font-size:clamp(18px,2vw,25px);
+  line-height:1.23;text-align:left;
+}
+#cap.compact h2 span{transition-delay:0s!important}
+#cap.big.compact{
+  left:5vw;right:auto;top:auto;transform:none;text-align:left;
+  width:auto;max-width:min(780px,78vw);padding:10px 16px;
+  background:linear-gradient(90deg,rgba(4,8,18,.9),rgba(4,8,18,.6));
+  border:1px solid rgba(222,164,28,.46);
+  border-left:2px solid rgba(222,164,28,.8);
+}
+@media(max-width:760px){
+  #cap:not(.compact) p{max-height:300px}
+  #mobileFacts{
+    max-height:110px;opacity:1;overflow:hidden;
+    transition:max-height .55s ease,opacity .25s ease,margin .55s ease;
+  }
+  #cap.compact,#cap.big.compact{
+    left:10px;right:10px;top:auto;transform:none;
+    bottom:calc(91px + env(safe-area-inset-bottom,0px));
+    width:auto;max-width:none;max-height:min(30dvh,190px);
+    padding:9px 12px;border-radius:12px;overflow:hidden;
+    background:rgba(5,11,24,.9);
+    border:1px solid rgba(222,164,28,.4);
+    border-left:2px solid rgba(222,164,28,.8);
+    box-shadow:0 7px 18px rgba(0,0,0,.27);
+  }
+  #cap.compact h2,#cap.big.compact h2{
+    font-size:clamp(15px,4.15vw,18px);line-height:1.23;
+    margin:0;text-align:left;
+  }
+  #cap.compact #mobileFacts{
+    max-height:0;opacity:0;margin-top:0;visibility:hidden;
+  }
+}
+@media(max-width:380px){
+  #cap.compact,#cap.big.compact{
+    bottom:calc(89px + env(safe-area-inset-bottom,0px));
+    padding:8px 10px;max-height:32dvh;
+  }
+  #cap.compact h2,#cap.big.compact h2{font-size:14px}
+}
+@media(max-height:580px) and (orientation:landscape){
+  #cap.compact,#cap.big.compact{
+    left:12px;right:auto;top:auto;transform:none;
+    bottom:calc(52px + env(safe-area-inset-bottom,0px));
+    width:auto;max-width:min(540px,76vw);max-height:30dvh;
+    padding:7px 11px;
+  }
+  #cap.compact h2,#cap.big.compact h2{font-size:clamp(14px,2.4vw,19px)}
+}
+@media(prefers-reduced-motion:reduce){#cap,#cap p,#mobileFacts{transition:none}}
 </style></head><body>
 <a id="back" href="index.html" aria-label="Nazad na početnu stranu doktorske disertacije">← <span class="back-full">Nazad na disertaciju</span><span class="back-short">Nazad</span></a><div id="edition">Video ilustracija · 9 minuta</div><canvas id="c" aria-hidden="true"></canvas>
 <div id="cap" aria-live="off"><h2></h2><p></p><div id="mobileFacts"></div></div>
@@ -382,6 +447,11 @@ S.forEach(([s0,s1],i)=>{const A=sm((T-s0)/2.5)*sm((s1-T)/2.5);if(A<.002)return;g
 g.globalAlpha=A;if(SC[i])SC[i]((T-s0)/(s1-s0),T)});
 g.globalAlpha=1;stars(T);g.globalCompositeOperation='source-over';const v=g.createRadialGradient(W/2,H/2,H*.4,W/2,H/2,Math.max(W,H)*.75);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(2,3,8,.75)');g.fillStyle=v;g.fillRect(0,0,W,H);
 const k=CAP.findIndex(c=>T>=c[0]&&T<c[1]);if(k!=ci){ci=k;if(k>=0){ch.innerHTML=wr(CAP[k][2]);cp.innerHTML=CAP[k][3];cap.className=CAP[k][4]?'big':'';void cap.offsetWidth;cap.classList.add('on');facts.replaceChildren(...(MF[k]||[]).map(t=>{const e=document.createElement('span');e.textContent=t;return e}))}else{cap.classList.remove('on');facts.replaceChildren()}}
+// Posle prvih 15 sekundi opisa tekuće scene ostaje samo naslov.
+const compactCaption=k>=0 && T-CAP[k][0]>=15;
+cap.classList.toggle('compact',compactCaption);
+cp.setAttribute('aria-hidden',compactCaption?'true':'false');
+facts.setAttribute('aria-hidden',compactCaption?'true':'false');
 cap.style.opacity=k<0?0:Math.min(sm((T-CAP[k][0])/1.2),sm((CAP[k][1]-T)/1.2));
 refreshSceneGuide();
 fill.style.width=T/540*100+'%';const f=n=>Math.floor(n/60)+':'+String(Math.floor(n%60)).padStart(2,'0');tm.textContent=f(T)+' / 9:00';trk.setAttribute('aria-valuenow',String(Math.round(T)));trk.setAttribute('aria-valuetext',f(T));

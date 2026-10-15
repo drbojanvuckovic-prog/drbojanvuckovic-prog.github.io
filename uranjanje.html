@@ -83,49 +83,116 @@ canvas{position:fixed;inset:0;width:100%;height:100%}
 }
 @media(prefers-reduced-motion:reduce){#cap span{transition:none;filter:none}}
 
-/* Scene guide: a compact explanatory layer separate from the scientific animation. */
+/* Full-width, slim chapter navigation: does not cover the main illustrations. */
 #scene-guide[hidden],#chapters-menu[hidden]{display:none!important}
-#scene-guide{position:fixed;z-index:9;top:calc(61px + env(safe-area-inset-top,0px));left:clamp(14px,3vw,34px);width:min(350px,36vw);padding:14px 16px 12px;border:1px solid rgba(111,211,232,.28);border-radius:17px;background:linear-gradient(135deg,rgba(6,19,35,.86),rgba(4,8,21,.76));backdrop-filter:blur(14px);box-shadow:0 15px 38px rgba(0,0,0,.24);color:#e6f5f8;font-size:13px}
-.scene-guide-head{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
-#scene-count{color:#edc56e;font-variant-numeric:tabular-nums;font-weight:700}
-#chapter-name{color:#a0e4e9;text-align:right}
-.scene-guide-note{font-size:13px;line-height:1.45;color:#e2eef5;padding:10px 0 6px}
-#scene-legend{display:flex;flex-wrap:wrap;gap:7px 12px;color:#d5e9f2;font-size:11px;line-height:1.3}
+#scene-guide{
+  position:fixed;z-index:9;inset:0 0 auto;width:100%;
+  display:grid;grid-template-columns:max-content minmax(0,1fr) auto auto;
+  align-items:center;gap:8px 18px;
+  padding:calc(7px + env(safe-area-inset-top,0px)) clamp(12px,2.4vw,30px) 7px clamp(173px,15vw,206px);
+  background:linear-gradient(180deg,rgba(6,18,30,.97),rgba(7,22,36,.93));
+  border:0;border-bottom:1px solid rgba(111,211,232,.24);
+  border-radius:0;box-shadow:0 6px 20px rgba(0,0,0,.25);
+  backdrop-filter:blur(12px);color:#e6f5f8;font-size:12px;
+}
+.scene-guide-head{display:flex;align-items:center;gap:10px;min-width:0;white-space:nowrap;font-size:11px;letter-spacing:.04em}
+#scene-count{color:#f4cc7d;font-weight:700;font-variant-numeric:tabular-nums;flex:0 0 auto}
+#chapter-name{color:#a0e4e9;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;font-weight:500}
+.scene-guide-note{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#d6e4ec;font-size:11px;line-height:1.3}
+#scene-legend{display:flex;align-items:center;gap:6px 12px;min-width:0;white-space:nowrap;font-size:10px;color:#d5e9f2}
 #scene-legend:empty{display:none}
-.scene-swatch{display:inline-flex;align-items:center;gap:6px}
-.scene-swatch:before{content:"";display:inline-block;flex:0 0 auto;width:8px;height:8px;border-radius:50%;background:var(--swatch-color);box-shadow:0 0 10px var(--swatch-color)}
-.chapter-steps{display:flex;gap:5px;margin:10px 0 7px}
-.chapter-steps i{height:3px;flex:1;background:rgba(130,178,199,.24);border-radius:5px}
-.chapter-steps i.on{background:#e3ad4f;box-shadow:0 0 8px rgba(222,164,28,.3)}
-#chapters-toggle{font:inherit;color:#b2dfe7;font-size:12px;text-align:left;border:0;background:transparent;padding:4px 0;cursor:pointer;min-height:32px}
-#chapters-toggle:focus-visible,#chapters-menu button:focus-visible{outline:2px solid #6fd3e8;outline-offset:3px}
-#chapters-menu{position:absolute;right:0;top:calc(100% + 7px);width:min(310px,85vw);padding:8px;background:rgba(5,17,29,.97);border:1px solid rgba(111,211,232,.35);border-radius:15px;box-shadow:0 18px 40px rgba(0,0,0,.4);display:grid;gap:3px}
-#chapters-menu button{font:inherit;text-align:left;background:transparent;border:0;border-radius:9px;color:#e7f4f8;cursor:pointer;padding:10px 11px;min-height:40px}
-#chapters-menu button:hover{background:rgba(111,211,232,.11)}
+.scene-swatch{display:inline-flex;align-items:center;gap:5px}
+.scene-swatch:before{content:"";display:inline-block;flex:0 0 auto;width:7px;height:7px;border-radius:50%;background:var(--swatch-color);box-shadow:0 0 7px var(--swatch-color)}
+.chapter-steps{position:absolute;left:0;right:0;bottom:0;display:flex;gap:2px;margin:0;height:3px}
+.chapter-steps i{height:3px;flex:1;background:rgba(130,178,199,.18)}
+.chapter-steps i.on{background:#dca842}
+#chapters-toggle{
+  min-height:34px;display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  border:1px solid rgba(115,211,228,.28);border-radius:9px;
+  padding:6px 10px;background:rgba(18,53,69,.32);
+  color:#d9eef2;font:500 11px 'Exo 2',system-ui,sans-serif;
+  white-space:nowrap;cursor:pointer;
+}
+#chapters-toggle:hover{background:rgba(21,78,94,.48);border-color:rgba(115,211,228,.5)}
+#chapters-toggle:focus-visible,#chapters-menu button:focus-visible{outline:2px solid #6fd3e8;outline-offset:2px}
+#chapters-menu{
+  position:absolute;z-index:12;right:clamp(12px,2.4vw,30px);top:calc(100% + 6px);
+  width:min(320px,calc(100vw - 24px));padding:7px;
+  border:1px solid rgba(111,211,232,.35);border-radius:13px;
+  background:rgba(5,17,29,.97);box-shadow:0 18px 40px rgba(0,0,0,.38);
+  display:grid;gap:2px;
+}
+#chapters-menu button{
+  background:transparent;border:0;border-radius:8px;padding:10px;
+  color:#e7f4f8;font:400 12px 'Exo 2',system-ui,sans-serif;
+  line-height:1.35;text-align:left;cursor:pointer;min-height:39px;
+}
+#chapters-menu button:hover{background:rgba(111,211,232,.12)}
+/* The return link shares the thin top strip instead of adding a second overlay. */
+#back{
+  z-index:11;top:calc(7px + env(safe-area-inset-top,0px));
+  left:clamp(10px,2vw,24px);min-height:33px;padding:7px 10px;
+  border:1px solid rgba(111,211,232,.21);border-radius:9px;
+  background:rgba(8,25,39,.68);font-size:12px;line-height:1.2;box-shadow:none;
+}
+.back-short{display:none}
+#edition{display:none}
+/* The subtitle stays by the bottom playback controls, leaving the scene unobscured above. */
+@media(max-width:1170px){
+  #scene-guide{grid-template-columns:minmax(0,1fr) auto auto}
+  .scene-guide-note{display:none}
+}
+@media(max-width:820px){
+  #scene-legend{display:none}
+  #scene-guide{grid-template-columns:minmax(0,1fr) auto;padding-left:178px;gap:8px}
+  .scene-guide-head{min-width:0}
+}
 @media(max-width:760px){
-  #scene-guide{top:calc(94px + env(safe-area-inset-top,0px));left:auto;right:12px;width:min(275px,calc(100vw - 24px));padding:10px 12px;border-radius:13px}
-  .scene-guide-head{font-size:10px}
-  .scene-guide-note{font-size:11px;padding:6px 0 5px;line-height:1.32}
-  #scene-legend{font-size:10px;gap:4px 8px}
-  #chapters-toggle{font-size:11px;min-height:29px}
-  .chapter-steps{margin:7px 0 4px}
+  #scene-guide{
+    grid-template-columns:minmax(0,1fr) auto;
+    padding:calc(6px + env(safe-area-inset-top,0px)) 9px 7px 84px;
+    gap:6px;min-height:50px;
+  }
+  #back{
+    top:calc(10px + env(safe-area-inset-top,0px));left:8px;
+    min-height:32px;padding:7px 8px;border-radius:8px;font-size:11px;
+  }
+  .back-full{display:none}.back-short{display:inline}
+  .scene-guide-head{gap:6px;font-size:10px}
+  #scene-count{font-size:10px}
+  #chapter-name{font-size:10px}
+  .scene-guide-note,#scene-legend{display:none}
+  #chapters-toggle{min-height:33px;padding:6px 8px;font-size:10px}
+  #chapters-menu{right:8px;width:min(300px,calc(100vw - 16px))}
   #chapters-menu button{font-size:12px}
+  #cap,#cap.big{max-height:min(40dvh,270px)}
+}
+@media(max-width:380px){
+  #scene-guide{padding-left:76px;gap:4px}
+  #chapters-toggle{padding:6px;font-size:10px}
+  #chapter-name{max-width:115px}
+  #cap,#cap.big{max-height:min(38dvh,235px)}
 }
 @media(max-height:580px) and (orientation:landscape){
-  #scene-guide{top:calc(8px + env(safe-area-inset-top,0px));left:auto;right:10px;width:min(270px,39vw);padding:9px 11px}
-  .scene-guide-note{font-size:11px;padding:5px 0 2px}
-  #chapters-toggle{min-height:24px;font-size:11px}
-  .chapter-steps{margin:5px 0 2px}
+  #scene-guide{
+    grid-template-columns:minmax(0,1fr) auto;padding:calc(4px + env(safe-area-inset-top,0px)) 9px 5px 108px;
+    min-height:37px;
+  }
+  #back{top:calc(4px + env(safe-area-inset-top,0px));left:8px;min-height:29px;font-size:11px;padding:5px 7px}
+  .scene-guide-head{font-size:10px}
+  .scene-guide-note,#scene-legend{display:none}
+  #chapters-toggle{min-height:28px;font-size:10px;padding:4px 7px}
+  #cap,#cap.big{max-height:40dvh}
 }
 </style></head><body>
-<a id="back" href="index.html" aria-label="Nazad na početnu stranu doktorske disertacije">← Nazad na disertaciju</a><div id="edition">Video ilustracija · 9 minuta</div><canvas id="c" aria-hidden="true"></canvas>
+<a id="back" href="index.html" aria-label="Nazad na početnu stranu doktorske disertacije">← <span class="back-full">Nazad na disertaciju</span><span class="back-short">Nazad</span></a><div id="edition">Video ilustracija · 9 minuta</div><canvas id="c" aria-hidden="true"></canvas>
 <div id="cap" aria-live="off"><h2></h2><p></p><div id="mobileFacts"></div></div>
 <aside id="scene-guide" aria-label="Vodič kroz video ilustraciju" hidden>
   <div class="scene-guide-head"><span id="scene-count">01 / 16</span><span id="chapter-name">Uvod</span></div>
   <div class="scene-guide-note" id="scene-note">Šematski prikazi i rezultati istraživanja</div>
   <div id="scene-legend" aria-label="Legenda prikaza"></div>
   <div class="chapter-steps" id="chapter-steps" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-  <button type="button" id="chapters-toggle" aria-expanded="false" aria-controls="chapters-menu">Odaberi poglavlje <span aria-hidden="true">⌄</span></button>
+  <button type="button" id="chapters-toggle" aria-label="Odaberi poglavlje" aria-expanded="false" aria-controls="chapters-menu">Poglavlja <span aria-hidden="true">⌄</span></button>
   <div id="chapters-menu" hidden aria-label="Poglavlja video ilustracije">
     <button type="button" data-seek="0">01 · Uvod</button>
     <button type="button" data-seek="88">02 · Metodologija</button>

@@ -1351,3 +1351,14 @@ main > .metrics{display:none !important}
   .paper-showcase-card{grid-template-columns:1fr}
   .paper-thumb-wrap img{height:auto;max-height:360px;object-fit:contain;background:#fff}
 }
+
+/* Desktop-only: restrained dissertation heading on the homepage */
+@media (min-width: 881px) {
+  .dissertation-banner .banner-copy h1 {
+    font-size: clamp(1.9rem, 2.35vw, 2.65rem);
+    line-height: 1.16;
+    letter-spacing: -.025em;
+    max-width: 780px;
+    text-wrap: balance;
+  }
+}
